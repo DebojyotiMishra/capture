@@ -34,6 +34,23 @@ This project follows a standard Git-flow inspired branching strategy:
    - Push to GitHub: `git push -u origin hotfix/issue-name`
    - Create Pull Requests to merge into both main and develop
 
+## Commit Convention
+
+This project follows the [Conventional Commits](https://www.conventionalcommits.org/) specification for commit messages. All commit messages must follow this format:
+
+```
+<type>(<scope>): <subject>
+```
+
+For example:
+```
+feat(camera): add support for front camera switching
+fix(login): resolve issue with password validation
+docs(readme): update installation instructions
+```
+
+A git hook is in place to enforce this convention. See [Commit Convention](docs/COMMIT_CONVENTION.md) for details.
+
 ## Release Process
 
 When the develop branch is stable and ready for release:
