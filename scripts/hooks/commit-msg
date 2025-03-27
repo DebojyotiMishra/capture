@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Conventional Commit Message Hook
+# Format: <type>(<scope>): <subject>
+# Example: feat(login): add login form validation
+
+# Color codes for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat $COMMIT_MSG_FILE)
+
+# Regex for conventional commit format
+# Format: <type>(<scope>): <subject>
+# type: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert
+PATTERN="^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\([a-z0-9 -]+\))?: .{1,100}"
+
+# Check if the commit message matches the conventional commit format
+if ! [[ $COMMIT_MSG =~ $PATTERN ]]; then
+    echo -e "${RED}ERROR: Your commit message does not follow the Conventional Commit format.${NC}"
+    echo -e "${YELLOW}Format should be: <type>(<scope>): <subject>${NC}"
+    echo -e "${YELLOW}Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert${NC}"
+    echo -e "${YELLOW}Example: feat(login): add user authentication${NC}"
+    echo -e "${RED}Your commit message was:${NC}"
+    echo "$COMMIT_MSG"
+    exit 1
+fi
+
+# Extract type and scope
+TYPE=$(echo $COMMIT_MSG | sed -E 's/^([a-z]+)(\(.*\))?:.*/\1/')
+SCOPE=$(echo $COMMIT_MSG | sed -E 's/^[a-z]+\((.*)\):.*/\1/')
+if [ -z "$SCOPE" ]; then
+    SCOPE="none"
+fi
+
+echo -e "${GREEN}✓ Commit message follows conventional format${NC}"
+echo -e "${GREEN}✓ Type: $TYPE${NC}"
+echo -e "${GREEN}✓ Scope: $SCOPE${NC}"
+exit 0 

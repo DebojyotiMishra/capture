@@ -51,6 +51,16 @@ docs(readme): update installation instructions
 
 A git hook is in place to enforce this convention. See [Commit Convention](docs/COMMIT_CONVENTION.md) for details.
 
+### Setting Up Git Hooks
+
+After cloning the repository, run the setup script to install the git hooks:
+
+```bash
+./scripts/setup-hooks.sh
+```
+
+This will set up the commit message hook that enforces the conventional commit format.
+
 ## Release Process
 
 When the develop branch is stable and ready for release:
